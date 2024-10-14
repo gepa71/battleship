@@ -50,6 +50,7 @@ public class Main {
         System.out.println("how many ships would you like on the board? (max 5)");
         int shipNumber = keyboard.nextInt();
 
+        // FIXME - What happens if the second entry is also bigger than 5?
         if (shipNumber > 5){
             System.out.println("sorry, the maximum is 5 ships. please choose again");
             shipNumber = keyboard.nextInt();
@@ -64,6 +65,8 @@ public class Main {
         for (int i = 1; i <= shipNumber; i++) {
 
             ship(gameBoard, randomCoordinate(board_size), randomCoordinate(board_size), i, '-', direction());
+            // FIXME - You need a way to detect whether ship() actually created a ship or not.
+            // If not, you need to retry until it succeeds
         }
 
 
@@ -92,6 +95,7 @@ public class Main {
 
     }
 
+    // SUGGESTION: instead of using strings for the directions, read/learn about enum and use that instead
     // returns direction
     public static String direction() {
         double random = Math.random();
@@ -179,7 +183,9 @@ public class Main {
             return false;
         }
 
+        // TODO - Think of a way to combine these 4 direction checks into one and avoid code duplication
         if (direction.equals("up")) {
+            // FIXME - you can combine these loops into one
             for (int i = 1; i < shiplength; i++) {
                 for (int n = 1; n < shiplength-1; n++) {
                     if (x - n == 0) {
@@ -199,6 +205,7 @@ public class Main {
                         return false;
                     }
                 }
+                // FIXME - on this one I got an ArrayIndexOutOfBoundsException when testing... think about the conditions above
                 if (board[x+i][y] != '0') {
                     return false;
                 }
@@ -224,6 +231,7 @@ public class Main {
                         return false;
                     }
                 }
+                // FIXME - this will be similar to down, the check above is not completely correct
                 if (board[x][y+i] != '0') {
                     return false;
                 }
